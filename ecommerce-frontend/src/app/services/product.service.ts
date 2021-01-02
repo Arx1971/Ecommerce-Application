@@ -24,5 +24,5 @@ export class ProductService {
 interface GetResponse {
   _embedded: {
     products: Product[];
-  }
+  };
 }
