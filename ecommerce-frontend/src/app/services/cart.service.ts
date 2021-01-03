@@ -21,13 +21,7 @@ export class CartService {
     let existingCartItem: CartItem;
 
     if (this.cartItems.length > 0) {
-      for (const tempCartItem of this.cartItems) {
-        // tslint:disable-next-line:triple-equals
-        if (tempCartItem.id == theCartItem.id) {
-          existingCartItem = tempCartItem;
-          break;
-        }
-      }
+      existingCartItem = this.cartItems.find(tempCartItem => tempCartItem.id === theCartItem.id);
       // tslint:disable-next-line:triple-equals
       alreadyExistInCart = (existingCartItem != undefined);
     }
