@@ -34,7 +34,7 @@ export class CartService {
   }
 
   // tslint:disable-next-line:typedef
-  private computeCartTotals() {
+  computeCartTotals() {
     let totalPriceValue = 0;
     let totalQuantityValue = 0;
     for (const currentItem of this.cartItems) {
@@ -49,7 +49,7 @@ export class CartService {
   }
 
   // tslint:disable-next-line:typedef
-  private logCartValue(totalPriceValue: number, totalQuantityValue: number) {
+  logCartValue(totalPriceValue: number, totalQuantityValue: number) {
     console.log('Contents of the cart');
     for (const tempCartItem of this.cartItems) {
       const subTotal = tempCartItem.quantity * tempCartItem.unitPrice;
@@ -57,5 +57,24 @@ export class CartService {
     }
     console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantity: ${totalQuantityValue}`);
     console.log('=========================');
+  }
+
+  // tslint:disable-next-line:typedef
+  decrementQuantity(cartItem: CartItem) {
+    cartItem.quantity--;
+    if (cartItem.quantity == 0) {
+      this.remove(cartItem);
+    } else {
+      this.computeCartTotals();
+    }
+  }
+
+  // tslint:disable-next-line:typedef
+  remove(cartItem: CartItem) {
+    const itemIndex = this.cartItems.findIndex(temp => temp.id === cartItem.id);
+    if (itemIndex > -1) {
+      this.cartItems.splice(itemIndex, 1);
+      this.computeCartTotals();
+    }
   }
 }
