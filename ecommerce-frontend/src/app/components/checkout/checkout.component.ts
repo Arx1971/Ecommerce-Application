@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {OnlineShopFormService} from '../../services/online-shop-form.service';
 
 @Component({
   selector: 'app-checkout',
@@ -13,7 +14,12 @@ export class CheckoutComponent implements OnInit {
   totalPrice = 0;
   totalQuantity = 0;
 
-  constructor(private formBuilder: FormBuilder) { }
+  creditCardYears: number[] = [];
+  creditCardMonths: number[] = [];
+
+  constructor(private formBuilder: FormBuilder,
+              private onlineShopFormService: OnlineShopFormService) {
+  }
 
   ngOnInit(): void {
 
@@ -46,6 +52,18 @@ export class CheckoutComponent implements OnInit {
         expirationYear: ['']
       })
     });
+
+    const startMonth: number = new Date().getMonth() + 1;
+    console.log('StartMonth' + startMonth);
+    this.onlineShopFormService.getCreditCardMonths(startMonth).subscribe(data => {
+      console.log('Retrieved Credit card months' + JSON.stringify(data));
+      this.creditCardMonths = data;
+    });
+
+    this.onlineShopFormService.getCreditCardYears().subscribe(data => {
+      console.log('Retrieved credit card years: ' + JSON.stringify(data));
+      this.creditCardYears = data;
+    });
   }
 
   // tslint:disable-next-line:typedef
@@ -54,8 +72,7 @@ export class CheckoutComponent implements OnInit {
     if (event.target.checked) {
       this.checkoutFormGroup.controls.billingAddress
         .setValue(this.checkoutFormGroup.controls.shippingAddress.value);
-    }
-    else {
+    } else {
       this.checkoutFormGroup.controls.billingAddress.reset();
     }
 
@@ -66,5 +83,23 @@ export class CheckoutComponent implements OnInit {
     console.log('Handling the submit button');
     console.log(this.checkoutFormGroup.get('customer').value);
     console.log('The email address is ' + this.checkoutFormGroup.get('customer').value.email);
+  }
+
+  // tslint:disable-next-line:typedef
+  handleMonthsAndYears() {
+    const creditCardFormGroup = this.checkoutFormGroup.get('creditForm');
+    const currentYear: number = new Date().getFullYear();
+    const selectedYear: number = Number(creditCardFormGroup.value.expirationYear);
+    let startMonth: number;
+    if (currentYear === selectedYear) {
+      startMonth = new Date().getMonth() + 1;
+    }
+    else {
+      startMonth = 1;
+    }
+    this.onlineShopFormService.getCreditCardMonths(startMonth).subscribe(data =>{
+      console.log('Retrieved Credit card months' + JSON.stringify(data));
+      this.creditCardMonths = data;
+    });
   }
 }
