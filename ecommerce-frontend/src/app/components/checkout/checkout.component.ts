@@ -49,6 +49,13 @@ export class CheckoutComponent implements OnInit {
         expirationYear: ['']
       })
     });
+
+    this.onlineShopFormService.getCreditCardMonths(new Date().getMonth() + 1).subscribe(data => {
+      this.expirationMonths = data;
+    });
+    this.onlineShopFormService.getCreditCardYears().subscribe(data => {
+      this.expirationYears = data;
+    });
   }
 
   // tslint:disable-next-line:typedef
@@ -56,7 +63,8 @@ export class CheckoutComponent implements OnInit {
     console.log('Handling the Submission');
     console.log(this.checkoutFromGroup.get('customer').value);
     console.log(this.checkoutFromGroup.get('shippingAddress').value);
-    console.log(this.checkoutFromGroup.get('shippingAddress').value);
+    console.log(this.checkoutFromGroup.get('billingAddress').value);
+    console.log(this.checkoutFromGroup.get('creditCard').value);
   }
 
 
