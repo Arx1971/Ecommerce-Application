@@ -46,4 +46,12 @@ export class CheckoutComponent implements OnInit {
   }
 
 
+  // tslint:disable-next-line:typedef
+  copyShippingAddressToBillingAddress(event) {
+    if (event.target.checked) {
+      this.checkoutFromGroup.controls.billingAddress.setValue(
+        this.checkoutFromGroup.controls.shippingAddress.value
+      );
+    }
+  }
 }
