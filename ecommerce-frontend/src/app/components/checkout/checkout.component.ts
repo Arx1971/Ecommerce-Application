@@ -52,6 +52,8 @@ export class CheckoutComponent implements OnInit {
       this.checkoutFromGroup.controls.billingAddress.setValue(
         this.checkoutFromGroup.controls.shippingAddress.value
       );
+    } else {
+      this.checkoutFromGroup.controls.billingAddress.reset();
     }
   }
 }
