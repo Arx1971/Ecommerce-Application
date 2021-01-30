@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
@@ -10,7 +10,8 @@ export class CheckoutComponent implements OnInit {
 
   checkoutFromGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.checkoutFromGroup = this.formBuilder.group({
@@ -18,14 +19,22 @@ export class CheckoutComponent implements OnInit {
         firstName: [''],
         lastName: [''],
         email: ['']
+      }),
+      shippingAddress: this.formBuilder.group({
+        country: [''],
+        street: [''],
+        city: [''],
+        state: [''],
+        zipcode: [''],
       })
     });
   }
 
   // tslint:disable-next-line:typedef
-  onSubmit(){
+  onSubmit() {
     console.log('Handling the Submission');
     console.log(this.checkoutFromGroup.get('customer').value);
+    console.log(this.checkoutFromGroup.get('shippingAddress').value.country);
   }
 
 
