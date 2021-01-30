@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {OnlineShopFormService} from '../../services/online-shop-form.service';
+import {Country} from '../../common/country';
+import {State} from '../../common/state';
 
 @Component({
   selector: 'app-checkout',
@@ -15,6 +17,9 @@ export class CheckoutComponent implements OnInit {
   expirationYears: number [] = [];
   totalPrice = 0;
   totalQuantity = 0;
+
+  countries: Country[] = [];
+  states: State[] = [];
 
   constructor(private formBuilder: FormBuilder, private onlineShopFormService: OnlineShopFormService) {
   }
