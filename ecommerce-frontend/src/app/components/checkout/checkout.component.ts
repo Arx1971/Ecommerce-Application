@@ -47,7 +47,6 @@ export class CheckoutComponent implements OnInit {
         expirationYear: ['']
       })
     });
-
   }
 
   // tslint:disable-next-line:typedef
