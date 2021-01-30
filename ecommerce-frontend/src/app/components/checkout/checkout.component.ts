@@ -34,7 +34,7 @@ export class CheckoutComponent implements OnInit {
   onSubmit() {
     console.log('Handling the Submission');
     console.log(this.checkoutFromGroup.get('customer').value);
-    console.log(this.checkoutFromGroup.get('shippingAddress').value.country);
+    console.log(this.checkoutFromGroup.get('shippingAddress').value);
   }
 
 
