@@ -13,6 +13,8 @@ export class CheckoutComponent implements OnInit {
 
   expirationMonths: number [] = [];
   expirationYears: number [] = [];
+  totalPrice = 0;
+  totalQuantity = 0;
 
   constructor(private formBuilder: FormBuilder, private onlineShopFormService: OnlineShopFormService) {
   }
