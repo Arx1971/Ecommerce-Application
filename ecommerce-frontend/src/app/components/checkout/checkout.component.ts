@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {OnlineShopFormService} from '../../services/online-shop-form.service';
 
 @Component({
   selector: 'app-checkout',
@@ -10,7 +11,10 @@ export class CheckoutComponent implements OnInit {
 
   checkoutFromGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  expirationMonths: number [] = [];
+  expirationYears: number [] = [];
+
+  constructor(private formBuilder: FormBuilder, private onlineShopFormService: OnlineShopFormService) {
   }
 
   ngOnInit(): void {
@@ -33,8 +37,17 @@ export class CheckoutComponent implements OnInit {
         city: [''],
         state: [''],
         zipcode: [''],
+      }),
+      creditCard: this.formBuilder.group({
+        cardType: [''],
+        nameOnCard: [''],
+        cardNumber: [''],
+        securityCode: [''],
+        expirationMonth: [''],
+        expirationYear: ['']
       })
     });
+
   }
 
   // tslint:disable-next-line:typedef
