@@ -49,13 +49,10 @@ export class CheckoutComponent implements OnInit {
         expirationYear: ['']
       })
     });
-
-    this.onlineShopFormService.getCreditCardMonths(new Date().getMonth() + 1).subscribe(data => {
-      this.expirationMonths = data;
-    });
     this.onlineShopFormService.getCreditCardYears().subscribe(data => {
       this.expirationYears = data;
     });
+    this.handleExpirationsMonthAndYear();
   }
 
   // tslint:disable-next-line:typedef
@@ -77,5 +74,20 @@ export class CheckoutComponent implements OnInit {
     } else {
       this.checkoutFromGroup.controls.billingAddress.reset();
     }
+  }
+
+  // tslint:disable-next-line:typedef
+  handleExpirationsMonthAndYear() {
+    const startYear: number = new Date().getFullYear();
+    const currentYear: number = this.checkoutFromGroup.get('creditCard').value.expirationYear;
+    let startMonth = 0;
+    if (startYear === currentYear) {
+      startMonth = new Date().getMonth() + 1;
+    } else {
+      startMonth = 1;
+    }
+    this.onlineShopFormService.getCreditCardMonths(startMonth).subscribe(data => {
+      this.expirationMonths = data;
+    });
   }
 }
