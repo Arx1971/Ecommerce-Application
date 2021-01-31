@@ -66,10 +66,11 @@ export class CheckoutComponent implements OnInit {
           CustomValidator.notOnlyWhiteSpace])
       }),
       creditCard: this.formBuilder.group({
-        cardType: [''],
-        nameOnCard: [''],
-        cardNumber: [''],
-        securityCode: [''],
+        cardType: new FormControl('', [Validators.required]),
+        nameOnCard: new FormControl('', [Validators.required, Validators.minLength(2),
+          CustomValidator.notOnlyWhiteSpace]),
+        cardNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}')]),
+        securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}')]),
         expirationMonth: [''],
         expirationYear: ['']
       })
@@ -162,6 +163,26 @@ export class CheckoutComponent implements OnInit {
   // tslint:disable-next-line:typedef
   get shippingAddressZipCode() {
     return this.checkoutFormGroup.get('shippingAddress.zipCode');
+  }
+
+  // tslint:disable-next-line:typedef
+  get creditCardType() {
+    return this.checkoutFormGroup.get('creditCard.cardType');
+  }
+
+  // tslint:disable-next-line:typedef
+  get creditCardNameOnCard() {
+    return this.checkoutFormGroup.get('creditCard.nameOnCard');
+  }
+
+  // tslint:disable-next-line:typedef
+  get creditCardNumber() {
+    return this.checkoutFormGroup.get('creditCard.cardNumber');
+  }
+
+  // tslint:disable-next-line:typedef
+  get creditCardSecurityCode() {
+    return this.checkoutFormGroup.get('creditCard.securityCode');
   }
 
 
