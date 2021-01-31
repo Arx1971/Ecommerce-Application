@@ -4,6 +4,7 @@ import {OnlineShopFormService} from '../../services/online-shop-form.service';
 import {State} from '../../common/state';
 import {Country} from '../../common/country';
 import {CustomValidator} from '../../validators/custom-validator';
+import {CartService} from '../../services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -27,10 +28,12 @@ export class CheckoutComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,
-              private onlineShopFormService: OnlineShopFormService) {
+              private onlineShopFormService: OnlineShopFormService, private cartService: CartService) {
   }
 
   ngOnInit(): void {
+
+    this.reviewCartDetails();
 
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
@@ -242,5 +245,15 @@ export class CheckoutComponent implements OnInit {
         formGroup.get('state').setValue(data[0]);
       }
     );
+  }
+
+  // tslint:disable-next-line:typedef
+  reviewCartDetails() {
+    this.cartService.totalQuantity.subscribe(data => {
+      this.totalQuantity = data;
+    });
+    this.cartService.totalPrice.subscribe(data => {
+      this.totalPrice = data;
+    });
   }
 }
