@@ -33,8 +33,10 @@ export class CheckoutComponent implements OnInit {
 
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
-        firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+        firstName: new FormControl('',
+          [Validators.required, Validators.minLength(2)]),
+        lastName: new FormControl('',
+          [Validators.required, Validators.minLength(2)]),
         email: new FormControl('',
           [Validators.required,
             Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
@@ -88,6 +90,21 @@ export class CheckoutComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
+  get firstName() {
+    return this.checkoutFormGroup.get('customer.firstName');
+  }
+
+  // tslint:disable-next-line:typedef
+  get lastName() {
+    return this.checkoutFormGroup.get('customer.lastName');
+  }
+
+  // tslint:disable-next-line:typedef
+  get email() {
+    return this.checkoutFormGroup.get('customer.email');
+  }
+
+  // tslint:disable-next-line:typedef
   copyShippingAddressToBillingAddress(event) {
 
     if (event.target.checked) {
@@ -104,6 +121,11 @@ export class CheckoutComponent implements OnInit {
   // tslint:disable-next-line:typedef
   onSubmit() {
     console.log('Handling the submit button');
+
+    if (this.checkoutFormGroup.invalid) {
+      this.checkoutFormGroup.markAllAsTouched();
+    }
+
     console.log(this.checkoutFormGroup.get('customer').value);
     console.log('The email address is ' + this.checkoutFormGroup.get('customer').value.email);
 
