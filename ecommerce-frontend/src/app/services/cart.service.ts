@@ -61,6 +61,7 @@ export class CartService {
   // tslint:disable-next-line:typedef
   decrementQuantity(cartItem: CartItem) {
     cartItem.quantity--;
+    // tslint:disable-next-line:triple-equals
     if (cartItem.quantity == 0) {
       this.remove(cartItem);
     } else {
