@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {OnlineShopFormService} from '../../services/online-shop-form.service';
 import {State} from '../../common/state';
 import {Country} from '../../common/country';
@@ -26,15 +26,20 @@ export class CheckoutComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,
-              private onlineShopFormService: OnlineShopFormService) { }
+              private onlineShopFormService: OnlineShopFormService) {
+  }
 
   ngOnInit(): void {
 
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
-        firstName: [''],
-        lastName: [''],
-        email: ['']
+        firstName: new FormControl('',
+          [Validators.required, Validators.minLength(2)]),
+        lastName: new FormControl('',
+          [Validators.required, Validators.minLength(2)]),
+        email: new FormControl('',
+          [Validators.required,
+            Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')])
       }),
       shippingAddress: this.formBuilder.group({
         street: [''],
@@ -85,14 +90,28 @@ export class CheckoutComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
+  get firstName() {
+    return this.checkoutFormGroup.get('customer.firstName');
+  }
+
+  // tslint:disable-next-line:typedef
+  get lastName() {
+    return this.checkoutFormGroup.get('customer.lastName');
+  }
+
+  // tslint:disable-next-line:typedef
+  get email() {
+    return this.checkoutFormGroup.get('customer.email');
+  }
+
+  // tslint:disable-next-line:typedef
   copyShippingAddressToBillingAddress(event) {
 
     if (event.target.checked) {
       this.checkoutFormGroup.controls.billingAddress
         .setValue(this.checkoutFormGroup.controls.shippingAddress.value);
       this.billingAddressStates = this.shippingAddressStates;
-    }
-    else {
+    } else {
       this.checkoutFormGroup.controls.billingAddress.reset();
       this.billingAddressStates = [];
     }
@@ -102,6 +121,11 @@ export class CheckoutComponent implements OnInit {
   // tslint:disable-next-line:typedef
   onSubmit() {
     console.log('Handling the submit button');
+
+    if (this.checkoutFormGroup.invalid) {
+      this.checkoutFormGroup.markAllAsTouched();
+    }
+
     console.log(this.checkoutFormGroup.get('customer').value);
     console.log('The email address is ' + this.checkoutFormGroup.get('customer').value.email);
 
@@ -124,8 +148,7 @@ export class CheckoutComponent implements OnInit {
 
     if (currentYear === selectedYear) {
       startMonth = new Date().getMonth() + 1;
-    }
-    else {
+    } else {
       startMonth = 1;
     }
 
@@ -152,8 +175,7 @@ export class CheckoutComponent implements OnInit {
       data => {
         if (formGroupName === 'shippingAddress') {
           this.shippingAddressStates = data;
-        }
-        else {
+        } else {
           this.billingAddressStates = data;
         }
         formGroup.get('state').setValue(data[0]);

@@ -9,28 +9,61 @@
           <h3>Customer</h3>
 
           <div class="row">
-            <div class="col-md-2"> <label>First Name</label></div>
+            <div class="col-md-2"><label>First Name</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="firstName" type="text">
+                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                     class="alert alert-danger mt-1">
+
+                  <div *ngIf="firstName.errors.required">
+                    First Name Is Required.
+                  </div>
+
+                  <div *ngIf="firstName.errors.minLength">
+                    First Name must be at least two characters.
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>Last Name</label></div>
+            <div class="col-md-2"><label>Last Name</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="lastName" type="text">
+                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                     class="alert alert-danger mt-1">
+
+                  <div *ngIf="lastName.errors.required">
+                    Last Name Is Required.
+                  </div>
+                  <div *ngIf="lastName.errors.minLength">
+                    Last Name must be at least two characters.
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>Email</label></div>
+            <div class="col-md-2"><label>Email</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="email" type="text">
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger mt-1">
+
+                  <div *ngIf="email.errors.required">
+                    Email Is Required.
+                  </div>
+                  <div *ngIf="email.errors.pattern">
+                    This not valid email domain.
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
@@ -42,7 +75,7 @@
           <h3>Shipping Address</h3>
 
           <div class="row">
-            <div class="col-md-2"> <label>Country</label></div>
+            <div class="col-md-2"><label>Country</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="country" (change)="getStates('shippingAddress')">
@@ -55,7 +88,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>Street</label></div>
+            <div class="col-md-2"><label>Street</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="street" type="text">
@@ -64,7 +97,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>City</label></div>
+            <div class="col-md-2"><label>City</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="city" type="text">
@@ -73,7 +106,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>State</label></div>
+            <div class="col-md-2"><label>State</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="state">
@@ -86,7 +119,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>Zip Code</label></div>
+            <div class="col-md-2"><label>Zip Code</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="zipCode" type="text">
@@ -110,7 +143,7 @@
           <h3>Billing Address</h3>
 
           <div class="row">
-            <div class="col-md-2"> <label>Country</label></div>
+            <div class="col-md-2"><label>Country</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="country" (change)="getStates('billingAddress')">
@@ -123,7 +156,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>Street</label></div>
+            <div class="col-md-2"><label>Street</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="street" type="text">
@@ -132,7 +165,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>City</label></div>
+            <div class="col-md-2"><label>City</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="city" type="text">
@@ -141,7 +174,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>State</label></div>
+            <div class="col-md-2"><label>State</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="state">
@@ -154,7 +187,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>Zip Code</label></div>
+            <div class="col-md-2"><label>Zip Code</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="zipCode" type="text">
@@ -169,7 +202,7 @@
           <h3>Credit Card</h3>
 
           <div class="row">
-            <div class="col-md-2"> <label>Card Type</label></div>
+            <div class="col-md-2"><label>Card Type</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="cardType">
@@ -181,7 +214,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>Name on Card</label></div>
+            <div class="col-md-2"><label>Name on Card</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="nameOnCard" type="text">
@@ -190,7 +223,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>Card Number</label></div>
+            <div class="col-md-2"><label>Card Number</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="cardNumber" type="text">
@@ -199,7 +232,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>Security Code</label></div>
+            <div class="col-md-2"><label>Security Code</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <input formControlName="securityCode" type="text">
@@ -208,7 +241,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>Expiration Month</label></div>
+            <div class="col-md-2"><label>Expiration Month</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="expirationMonth">
@@ -221,7 +254,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2"> <label>Expiration Year</label></div>
+            <div class="col-md-2"><label>Expiration Year</label></div>
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="expirationYear" (change)="handleMonthsAndYears()">
