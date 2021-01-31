@@ -3,7 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {OnlineShopFormService} from '../../services/online-shop-form.service';
 import {State} from '../../common/state';
 import {Country} from '../../common/country';
-import {CustomValidator} from "../../validators/custom-validator";
+import {CustomValidator} from '../../validators/custom-validator';
 
 @Component({
   selector: 'app-checkout',
