@@ -23,7 +23,7 @@ public class Customer {
     private String email;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private Set<Order> orders;
+    private Set<Order> orders = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -65,11 +65,14 @@ public class Customer {
         this.orders = orders;
     }
 
-    public void add(Order order){
-        if(order != null){
-            if(orders != null){
+    public void add(Order order) {
+
+        if (order != null) {
+
+            if (orders == null) {
                 orders = new HashSet<>();
             }
+
             orders.add(order);
             order.setCustomer(this);
         }

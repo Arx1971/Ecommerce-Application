@@ -22,12 +22,12 @@ public class OrderItem {
     private BigDecimal unitPrice;
 
     @Column(name = "quantity")
-    private Long quantity;
+    private Integer quantity;
 
     @Column(name = "product_id")
     private Long productId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
 
@@ -55,11 +55,11 @@ public class OrderItem {
         this.unitPrice = unitPrice;
     }
 
-    public Long getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
