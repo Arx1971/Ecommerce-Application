@@ -4,6 +4,10 @@ public class PurchaseResponse {
 
     private String orderTrackNumber;
 
+    public PurchaseResponse(String orderTrackNumber) {
+        this.orderTrackNumber = orderTrackNumber;
+    }
+
     public String getOrderTrackNumber() {
         return orderTrackNumber;
     }
