@@ -27,6 +27,10 @@ public class OrderItem {
     @Column(name = "product_id")
     private Long productId;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
     public Long getId() {
         return id;
     }
@@ -65,5 +69,13 @@ public class OrderItem {
 
     public void setProductId(Long productId) {
         this.productId = productId;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

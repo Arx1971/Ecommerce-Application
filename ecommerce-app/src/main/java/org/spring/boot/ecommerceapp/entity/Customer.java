@@ -1,6 +1,8 @@
 package org.spring.boot.ecommerceapp.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "customer", schema = "full-stack-ecommerce")
@@ -19,6 +21,9 @@ public class Customer {
 
     @Column(name = "email")
     private String email;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Set<Order> orders;
 
     public Long getId() {
         return id;
@@ -51,4 +56,23 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    public void add(Order order){
+        if(order != null){
+            if(orders != null){
+                orders = new HashSet<>();
+            }
+            orders.add(order);
+            order.setCustomer(this);
+        }
+    }
+
 }
