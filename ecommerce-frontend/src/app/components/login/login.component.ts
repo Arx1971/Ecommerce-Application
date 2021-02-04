@@ -28,6 +28,19 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.oktaSignIn.remote();
+    this.oktaSignIn.renderEl({
+        el: '#okta-sign-in-widget'
+      },
+      (response) => {
+        if (response.status === 'SUCCESS') {
+          this.oktaAuthService.signInWithRedirect();
+        }
+      },
+      (error) => {
+        throw  error;
+      }
+    );
   }
 
 }
