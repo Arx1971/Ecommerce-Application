@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: javainuseapp
+  cloud:
+    vault:
+      host: localhost
+      port: 8200
+      scheme: http
+      token: s.PkTLZuk3fjWZQxAc7PI9nXld
