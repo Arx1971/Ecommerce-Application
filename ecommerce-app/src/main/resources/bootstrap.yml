@@ -1,9 +1,13 @@
+spring.application.name: spring-vault-demo
 spring:
-  application:
-    name: javainuseapp
   cloud:
     vault:
+      authentication: TOKEN
+      token: s.lg7908gYgHVK6x4bEmeRYARe
       host: localhost
       port: 8200
       scheme: http
-      token: s.PkTLZuk3fjWZQxAc7PI9nXld
+      database:
+        enabled: true
+        role: order
+        backend: database
